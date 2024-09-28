@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload Form</title>
-</head>
-<body>
-
     <h2>Upload File to Google Drive</h2>
     <form id="uploadForm">
         <!-- File Input -->
@@ -20,23 +11,27 @@
         document.getElementById("uploadForm").addEventListener("submit", function(event) {
             event.preventDefault(); // Prevent the form from submitting the default way
 
-            // Create a FormData object
+            // Create a FormData object to hold the file
             var formData = new FormData();
             var fileInput = document.getElementById("file");
             var file = fileInput.files[0];
             formData.append("file", file);  // Append the file to the form data
 
-            // Send the form data to the Google Apps Script using Fetch API
+            // Send the form data to the Google Apps Script Web App
             fetch("https://script.google.com/a/macros/knotssolutions.com/s/AKfycbzFHLEOeulYtvQQuJ84eFjWMaJmtKvG1WkSrocmDXxLfygnPOeRZOdHiVZ0HE2Kcsc0cQ/exec", {
                 method: "POST",
-                body: formData
+                body: formData,
             })
             .then(response => response.text())
             .then(result => {
-                alert("Success: " + result);  // Show success message
+                alert("File uploaded successfully: " + result);
             })
             .catch(error => {
-                console.error("Error: ", error);  // Log any errors
+                console.error("Error: ", error);
+                alert("File upload failed!");
             });
         });
     </script>
+
+</body>
+</html>
