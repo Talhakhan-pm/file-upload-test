@@ -19,8 +19,10 @@
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br><br>
 
+        <!-- Add more inputs as necessary -->
+
         <!-- File Upload -->
-        <label for="file">Choose a file:</label>
+        <label for="file">Upload Driver's License Picture:</label>
         <input type="file" id="file" name="file" required><br><br>
 
         <input type="submit" value="Submit">
@@ -29,14 +31,14 @@
     <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
     <script>
         document.getElementById("dataForm").addEventListener("submit", function(event) {
-            event.preventDefault();  // Prevent the default form submission
+            event.preventDefault();  // Prevent default form submission
 
-            // Extract the form data
+            // Extract form data
             const firstName = document.getElementById("firstName").value;
             const lastName = document.getElementById("lastName").value;
             const email = document.getElementById("email").value;
 
-            // Extract the file to be uploaded
+            // Extract file to be uploaded
             const fileInput = document.getElementById("file");
             const file = fileInput.files[0];
 
@@ -44,20 +46,20 @@
                 // Prepare the FormData object for Cloudinary upload
                 const formData = new FormData();
                 formData.append("file", file);
-                formData.append("upload_preset", "my_upload_preset");  // Replace with your actual preset name
+                formData.append("upload_preset", "my_upload_preset");  // Replace with your Cloudinary preset
 
                 // Upload file to Cloudinary
-                fetch(`https://api.cloudinary.com/v1_1/dkxo4gfue/upload`, {
+                fetch(`https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/upload`, {
                     method: "POST",
                     body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
-                    // Once the file is uploaded, get the Cloudinary URL
+                    // Once file is uploaded, get the Cloudinary URL
                     const cloudinaryUrl = data.secure_url;
 
-                    // Now send form data along with the Cloudinary URL to Google Apps Script
-                    fetch("https://script.google.com/a/macros/knotssolutions.com/s/AKfycbzFHLEOeulYtvQQuJ84eFjWMaJmtKvG1WkSrocmDXxLfygnPOeRZOdHiVZ0HE2Kcsc0cQ/exec", {
+                    // Now send the form data and Cloudinary URL to Google Apps Script
+                    fetch("YOUR_GOOGLE_SCRIPT_WEB_APP_URL", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -66,15 +68,15 @@
                             firstName: firstName,
                             lastName: lastName,
                             email: email,
-                            fileUrl: cloudinaryUrl  // Send Cloudinary URL to Google Sheets
+                            fileUrl: cloudinaryUrl  // Add Cloudinary file URL
                         })
                     })
                     .then(response => response.text())
                     .then(result => {
-                        alert("Data submitted successfully!");
+                        alert("Data submitted successfully: " + result);
                     })
                     .catch(error => {
-                        console.error("Error submitting data to Google Sheets:", error);
+                        console.error("Error submitting to Google Sheets:", error);
                     });
                 })
                 .catch(error => {
