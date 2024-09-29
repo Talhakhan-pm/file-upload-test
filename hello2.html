@@ -1,4 +1,13 @@
-    <h2>Upload File to Google Drive</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File to Cloudinary</title>
+</head>
+<body>
+
+    <h2>Upload File to Cloudinary</h2>
     <form id="uploadForm">
         <!-- File Input -->
         <label for="file">Choose a file:</label>
@@ -7,29 +16,36 @@
         <input type="submit" value="Upload File">
     </form>
 
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
     <script>
         document.getElementById("uploadForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent the form from submitting the default way
+            event.preventDefault();  // Prevent default form submission
 
-            // Create a FormData object to hold the file
-            var formData = new FormData();
+            // Get the file from the input
             var fileInput = document.getElementById("file");
             var file = fileInput.files[0];
-            formData.append("file", file);  // Append the file to the form data
 
-            // Send the form data to the Google Apps Script Web App
-            fetch("https://script.google.com/a/macros/knotssolutions.com/s/AKfycbzFHLEOeulYtvQQuJ84eFjWMaJmtKvG1WkSrocmDXxLfygnPOeRZOdHiVZ0HE2Kcsc0cQ/exec", {
-                method: "POST",
-                body: formData,
-            })
-            .then(response => response.text())
-            .then(result => {
-                alert("File uploaded successfully: " + result);
-            })
-            .catch(error => {
-                console.error("Error: ", error);
-                alert("File upload failed!");
-            });
+            if (file) {
+                // Prepare the FormData object for Cloudinary upload
+                var formData = new FormData();
+                formData.append("file", file);
+                formData.append("upload_preset", "my_upload_preset");  // Replace with your actual preset name
+
+                // Upload the file to Cloudinary
+                fetch(`https://api.cloudinary.com/v1_1/dkxo4gfue/upload`, {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Uploaded file:", data);
+                    alert("File uploaded successfully: " + data.secure_url);
+                })
+                .catch(error => {
+                    console.error("Error uploading file:", error);
+                    alert("File upload failed!");
+                });
+            }
         });
     </script>
 
