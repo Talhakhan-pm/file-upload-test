@@ -49,7 +49,7 @@
                 formData.append("upload_preset", "my_upload_preset");  // Replace with your Cloudinary preset
 
                 // Upload file to Cloudinary
-                fetch(`https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/upload`, {
+                fetch(`https://api.cloudinary.com/v1_1/dkxo4gfue/upload`, {
                     method: "POST",
                     body: formData
                 })
@@ -59,7 +59,7 @@
                     const cloudinaryUrl = data.secure_url;
 
                     // Now send the form data and Cloudinary URL to Google Apps Script
-                    fetch("YOUR_GOOGLE_SCRIPT_WEB_APP_URL", {
+                    fetch("https://script.google.com/a/macros/knotssolutions.com/s/AKfycbzFHLEOeulYtvQQuJ84eFjWMaJmtKvG1WkSrocmDXxLfygnPOeRZOdHiVZ0HE2Kcsc0cQ/exec", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
