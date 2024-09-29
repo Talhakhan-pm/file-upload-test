@@ -3,47 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload File to Cloudinary</title>
+    <title>Submit Details and Upload File</title>
 </head>
 <body>
 
-    <h2>Upload File to Cloudinary</h2>
-    <form id="uploadForm">
-        <!-- File Input -->
+    <h2>Agent Data Submission</h2>
+    <form id="dataForm">
+        <!-- Personal Information -->
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <!-- File Upload -->
         <label for="file">Choose a file:</label>
-        <input type="file" id="file" name="file" required>
-        <br><br>
-        <input type="submit" value="Upload File">
+        <input type="file" id="file" name="file" required><br><br>
+
+        <input type="submit" value="Submit">
     </form>
- 
+
     <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
     <script>
-        document.getElementById("uploadForm").addEventListener("submit", function(event) {
-            event.preventDefault();  // Prevent default form submission
+        document.getElementById("dataForm").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevent the default form submission
 
-            // Get the file from the input
-            var fileInput = document.getElementById("file");
-            var file = fileInput.files[0];
+            // Extract the form data
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const email = document.getElementById("email").value;
+
+            // Extract the file to be uploaded
+            const fileInput = document.getElementById("file");
+            const file = fileInput.files[0];
 
             if (file) {
                 // Prepare the FormData object for Cloudinary upload
-                var formData = new FormData();
+                const formData = new FormData();
                 formData.append("file", file);
                 formData.append("upload_preset", "my_upload_preset");  // Replace with your actual preset name
 
-                // Upload the file to Cloudinary
+                // Upload file to Cloudinary
                 fetch(`https://api.cloudinary.com/v1_1/dkxo4gfue/upload`, {
                     method: "POST",
                     body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Uploaded file:", data);
-                    alert("File uploaded successfully: " + data.secure_url);
+                    // Once the file is uploaded, get the Cloudinary URL
+                    const cloudinaryUrl = data.secure_url;
+
+                    // Now send form data along with the Cloudinary URL to Google Apps Script
+                    fetch("https://script.google.com/a/macros/knotssolutions.com/s/AKfycbzFHLEOeulYtvQQuJ84eFjWMaJmtKvG1WkSrocmDXxLfygnPOeRZOdHiVZ0HE2Kcsc0cQ/exec", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email,
+                            fileUrl: cloudinaryUrl  // Send Cloudinary URL to Google Sheets
+                        })
+                    })
+                    .then(response => response.text())
+                    .then(result => {
+                        alert("Data submitted successfully!");
+                    })
+                    .catch(error => {
+                        console.error("Error submitting data to Google Sheets:", error);
+                    });
                 })
                 .catch(error => {
-                    console.error("Error uploading file:", error);
-                    alert("File upload failed!");
+                    console.error("Error uploading file to Cloudinary:", error);
                 });
             }
         });
