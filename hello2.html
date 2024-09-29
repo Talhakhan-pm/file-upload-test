@@ -1,90 +1,341 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Details and Upload File</title>
-</head>
-<body>
+<html>
+  <head>
+    <title>Complete Form with File Upload</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
-    <h2>Agent Data Submission</h2>
-    <form id="dataForm">
-        <!-- Personal Information -->
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" required><br><br>
+      .form-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        width: 60%;
+        max-width: 50%;
+        overflow-y: auto;
+        max-height: 90vh;
+      }
 
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" required><br><br>
+      .form-container h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+      }
 
-        <!-- Add more inputs as necessary -->
+      .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .form-group input, .form-group select {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+      }
+
+      .form-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .form-group.full-width {
+        width: 100%;
+      }
+
+      .form-group.half-width {
+        width: 48%;
+      }
+
+      #submitBtn {
+        padding: 10px 15px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      #submitBtn:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1>Personal Information</h1>
+      <form id="uploadForm">
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" required>
+          </div>
+          <div class="form-group half-width">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="pnumber">Phone:</label>
+            <input type="text" id="pnumber" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" placeholder="MM/DD/YYYY" required>
+          </div>
+        </div>
+
+
+        <div class="form-group full-width">
+          <label for="address">Street Address:</label>
+          <input type="text" id="address" placeholder="Enter complete address" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="vehicleDetails">Vehicle Details:</label>
+            <input type="text" id="vehicleDetails" placeholder="Enter vehicle details" required>
+          </div>
+
+          <div class="form-group half-width">
+            <label for="vehicleOwnership">Vehicle Ownership:</label>
+            <input type="text" id="vehicleOwnership" placeholder="Finance or Own?" required>
+          </div>
+
+          <div class="form-group half-width">
+            <label for="financeCompany">Finance Company:</label>
+            <input type="text" id="financeCompany">
+          </div>
+        </div>
+
+
+        <div class="form-group full-width">
+          <label for="vehiclePurpose">Vehicle Purpose:</label>
+          <input type="text" id="vehiclePurpose" placeholder="Enter vehicle purpose">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="dailyMiles">Daily Miles:</label>
+          <input type="number" id="dailyMiles" placeholder="Enter daily miles" >
+        </div>
+
+        <div class="form-group full-width">
+          <label for="theftDevice">Any Theft Device in Vehicle?</label>
+          <input type="text" id="theftDevice" placeholder="Yes/No">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="maritalStatus">Marital Status:</label>
+          <input type="text" id="maritalStatus" placeholder="Single / Married">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="gender">Gender:</label>
+          <input type="text" id="gender" placeholder="Male/Female">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="educationLevel">Education Level:</label>
+          <input type="text" id="educationLevel">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="earningSource">Source of Earning:</label>
+          <input type="text" id="earningSource" placeholder="Enter education level">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="workField">Field of Work:</label>
+          <input type="text" id="workField" placeholder="Enter source of earning">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="jobDesignation">Job Designation:</label>
+          <input type="text" id="jobDesignation">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="accidents">Any Accidents in Last 5 Years?</label>
+          <input type="text" id="accidents" placeholder="YES / NO">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="stateCarRegister">State Car Registered:</label>
+          <input type="text" id="stateCarRegister">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="stateLicenseRegister">State License Registered:</label>
+          <input type="text" id="stateLicenseRegister">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="vehicleOwner">Vehicle Owner:</label>
+          <input type="text" id="vehicleOwner" placeholder="Enter vehicle owner name">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="licenseYear">License Year:</label>
+          <input type="text" id="licenseYear">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="coverageLimit">Coverage Limit:</label>
+          <input type="text" id="coverageLimit">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="otherLicense">Other Country License:</label>
+          <input type="text" id="otherLicense">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="defenseCourse">Defense Drive Course:</label>
+          <input type="text" id="defenseCourse">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="courseYear">Course Year:</label>
+          <input type="text" id="courseYear">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="licenseNumber">Driving License Number:</label>
+          <input type="text" id="licenseNumber">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="policyActivationDate">Policy Activation Date:</label>
+          <input type="date" id="policyActivationDate">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="ssn">SSN Number:</label>
+          <input type="text" id="ssn" placeholder="XXX-XX-XXXX">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="vinNumber">VIN Number:</label>
+          <input type="text" id="vinNumber">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="gmail">Comments</label>
+          <input type="email" id="gmail" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="cardDetails">Card Details:</label>
+            <input type="text" id="cardDetails" placeholder="XXXX-XXXX-XXXX">
+          </div>
+
+          <div class="form-group half-width">
+            <label for="exp">Expiration:</label>
+            <input type="text" id="exp">
+          </div>
+
+          <div class="form-group half-width">
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv">
+          </div>
+        </div>
+
 
         <!-- File Upload -->
-        <label for="file">Upload Driver's License Picture:</label>
-        <input type="file" id="file" name="file" required><br><br>
+        <div class="form-group full-width">
+          <label for="myFile">Upload File:</label>
+          <input type="file" id="myFile" required>
+        </div>
 
-        <input type="submit" value="Submit">
-    </form>
-
-    <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+        <!-- Submit Button -->
+        <input type="button" id="submitBtn" value="Submit">
+        <p id="response"></p>
+      </form>
+    </div>
     <script>
-        document.getElementById("dataForm").addEventListener("submit", function(event) {
-            event.preventDefault();  // Prevent default form submission
-
-            // Extract form data
-            const firstName = document.getElementById("firstName").value;
-            const lastName = document.getElementById("lastName").value;
-            const email = document.getElementById("email").value;
-
-            // Extract file to be uploaded
-            const fileInput = document.getElementById("file");
-            const file = fileInput.files[0];
-
-            if (file) {
-                // Prepare the FormData object for Cloudinary upload
-                const formData = new FormData();
-                formData.append("file", file);
-                formData.append("upload_preset", "my_upload_preset");  // Replace with your Cloudinary preset
-
-                // Upload file to Cloudinary
-                fetch(`https://api.cloudinary.com/v1_1/dkxo4gfue/upload`, {
-                    method: "POST",
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Once file is uploaded, get the Cloudinary URL
-                    const cloudinaryUrl = data.secure_url;
-
-                    // Now send the form data and Cloudinary URL to Google Apps Script
-                    fetch("https://script.google.com/a/macros/knotssolutions.com/s/AKfycbzFHLEOeulYtvQQuJ84eFjWMaJmtKvG1WkSrocmDXxLfygnPOeRZOdHiVZ0HE2Kcsc0cQ/exec", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                            fileUrl: cloudinaryUrl  // Add Cloudinary file URL
-                        })
-                    })
-                    .then(response => response.text())
-                    .then(result => {
-                        alert("Data submitted successfully: " + result);
-                    })
-                    .catch(error => {
-                        console.error("Error submitting to Google Sheets:", error);
-                    });
-                })
-                .catch(error => {
-                    console.error("Error uploading file to Cloudinary:", error);
-                });
-            }
+        document.getElementById('submitBtn').addEventListener('click', function() {
+          var file = document.getElementById('myFile').files[0];
+          var reader = new FileReader();
+  
+          reader.onloadend = function() {
+            var base64Data = reader.result.split(',')[1];
+            
+            // Collect all form values
+            var formData = {
+              firstName: document.getElementById('firstName').value,
+              lastName: document.getElementById('lastName').value,
+              dob: document.getElementById('dob').value,
+              pnumber: document.getElementById('pnumber').value,
+              address: document.getElementById('address').value,
+              vehicleDetails: document.getElementById('vehicleDetails').value,
+              vehicleOwnership: document.getElementById('vehicleOwnership').value,
+              financeCompany: document.getElementById('financeCompany').value,
+              vehiclePurpose: document.getElementById('vehiclePurpose').value,
+              dailyMiles: document.getElementById('dailyMiles').value,
+              theftDevice: document.getElementById('theftDevice').value,
+              maritalStatus: document.getElementById('maritalStatus').value,
+              gender: document.getElementById('gender').value,
+              educationLevel: document.getElementById('educationLevel').value,
+              earningSource: document.getElementById('earningSource').value,
+              workField: document.getElementById('workField').value,
+              jobDesignation: document.getElementById('jobDesignation').value,
+              accidents: document.getElementById('accidents').value,
+              stateCarRegister: document.getElementById('stateCarRegister').value,
+              stateLicenseRegister: document.getElementById('stateLicenseRegister').value,
+              vehicleOwner: document.getElementById('vehicleOwner').value,
+              licenseYear: document.getElementById('licenseYear').value,
+              coverageLimit: document.getElementById('coverageLimit').value,
+              otherLicense: document.getElementById('otherLicense').value,
+              defenseCourse: document.getElementById('defenseCourse').value,
+              courseYear: document.getElementById('courseYear').value,
+              licenseNumber: document.getElementById('licenseNumber').value,
+              policyActivationDate: document.getElementById('policyActivationDate').value,
+              ssn: document.getElementById('ssn').value,
+              vinNumber: document.getElementById('vinNumber').value,
+              gmail: document.getElementById('gmail').value,
+              cardDetails: document.getElementById('cardDetails').value,
+              exp: document.getElementById('exp').value,
+              cvv: document.getElementById('cvv').value,
+              myFile: base64Data,
+              fileName: file.name,
+              fileType: file.type
+            };
+  
+            // Send data to Apps Script
+            google.script.run.withSuccessHandler(function(response) {
+              document.getElementById('response').innerHTML = "Data submitted successfully: " + response;
+            }).uploadFullForm(formData);
+          };
+  
+          reader.readAsDataURL(file);
         });
-    </script>
-
-</body>
+      </script>   
+  </body>
 </html>
