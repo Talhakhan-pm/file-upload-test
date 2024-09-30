@@ -1,0 +1,391 @@
+(* 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Form with File Upload</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .form-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 80%;
+        overflow-y: auto;
+        max-height: 90vh;
+      }
+
+      .form-container h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .form-group input, .form-group select {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+      }
+
+      .form-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .form-group.full-width {
+        width: 100%;
+      }
+
+      .form-group.half-width {
+        width: 48%;
+      }
+
+      #submitBtn {
+        padding: 10px 15px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      #submitBtn:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1>KNOTSCRM - SALE</h1>
+      <form id="uploadForm">
+        <input type="hidden" id="status" name="status" value="Not Charged">
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" required>
+          </div>
+          <div class="form-group half-width">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="pnumber">Phone:</label>
+            <input type="text" id="pnumber" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" placeholder="MM/DD/YYYY" required>
+          </div>
+        </div>
+
+
+        <div class="form-group full-width">
+          <label for="address">Street Address:</label>
+          <input type="text" id="address" placeholder="Enter complete address" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="vehicleDetails">Vehicle Details:</label>
+            <input type="text" id="vehicleDetails" placeholder="Enter vehicle details" required>
+          </div>
+
+          <div class="form-group half-width">
+            <label for="vehicleOwnership">Vehicle Ownership:</label>
+            <input type="text" id="vehicleOwnership" placeholder="Finance or Own?" required>
+          </div>
+
+          <div class="form-group half-width">
+            <label for="financeCompany">Finance Company:</label>
+            <input type="text" id="financeCompany">
+          </div>
+        </div>
+
+
+        <div class="form-group full-width">
+          <label for="vehiclePurpose">Vehicle Purpose:</label>
+          <input type="text" id="vehiclePurpose" placeholder="Enter vehicle purpose">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="dailyMiles">Daily Miles:</label>
+          <input type="number" id="dailyMiles" placeholder="Enter daily miles" >
+        </div>
+
+        <div class="form-group full-width">
+          <label for="theftDevice">Any Theft Device in Vehicle?</label>
+          <input type="text" id="theftDevice" placeholder="Yes/No">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="maritalStatus">Marital Status:</label>
+          <input type="text" id="maritalStatus" placeholder="Single / Married">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="gender">Gender:</label>
+          <input type="text" id="gender" placeholder="Male/Female">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="educationLevel">Education Level:</label>
+          <input type="text" id="educationLevel">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="earningSource">Source of Earning:</label>
+          <input type="text" id="earningSource" placeholder="Enter education level">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="workField">Field of Work:</label>
+          <input type="text" id="workField" placeholder="Enter source of earning">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="jobDesignation">Job Designation:</label>
+          <input type="text" id="jobDesignation">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="accidents">Any Accidents in Last 5 Years?</label>
+          <input type="text" id="accidents" placeholder="YES / NO">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="stateCarRegister">State Car Registered:</label>
+          <input type="text" id="stateCarRegister">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="stateLicenseRegister">State License Registered:</label>
+          <input type="text" id="stateLicenseRegister">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="vehicleOwner">Vehicle Owner:</label>
+          <input type="text" id="vehicleOwner" placeholder="Enter vehicle owner name">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="licenseYear">License Year:</label>
+          <input type="text" id="licenseYear">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="coverageLimit">Coverage Limit:</label>
+          <input type="text" id="coverageLimit">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="otherLicense">Other Country License:</label>
+          <input type="text" id="otherLicense">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="defenseCourse">Defense Drive Course:</label>
+          <input type="text" id="defenseCourse">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="courseYear">Course Year:</label>
+          <input type="text" id="courseYear">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="licenseNumber">Driving License Number:</label>
+          <input type="text" id="licenseNumber">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="policyActivationDate">Policy Activation Date:</label>
+          <input type="date" id="policyActivationDate">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="ssn">SSN Number:</label>
+          <input type="text" id="ssn" placeholder="XXX-XX-XXXX" maxlength="9">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="vinNumber">VIN Number:</label>
+          <input type="text" id="vinNumber">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="gmail">Amount:</label>
+          <input type="email" id="gmail" placeholder="$" maxlength="4">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="cardDetails">Card Details:</label>
+            <input type="text" id="cardDetails" placeholder="XXXX-XXXX-XXXX" maxlength="16">
+          </div>
+
+          <div class="form-group half-width">
+            <label for="exp">Expiration:</label>
+            <input type="text" id="exp" maxlength="5">
+          </div>
+
+          <div class="form-group half-width">
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" maxlength="4">
+          </div>
+        </div>
+
+
+        <!-- File Upload -->
+        <div class="form-group full-width">
+          <label for="myFile">Upload File:</label>
+          <input type="file" id="myFile" required>
+        </div>
+
+        <!-- Submit Button -->
+        <input type="button" id="submitBtn" value="Submit">
+        <p id="response"></p>
+      </form>
+    </div>
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+          var file = document.getElementById('myFile').files[0];
+          
+          if (file) {
+            var reader = new FileReader();
+            reader.onloadend = function() {
+              var base64Data = reader.result.split(',')[1];
+              
+              // Collect and submit the form with file data
+              collectAndSubmitForm(base64Data, file.name, file.type);
+            };
+            reader.readAsDataURL(file);  // This line is crucial for reading the file
+          } else {
+            // Submit without file if none is selected
+            collectAndSubmitForm('', '', '');
+          }
+        });
+
+        function collectAndSubmitForm(base64Data, fileName, fileType) {
+          var formData = {
+            status: document.getElementById('status').value,  
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            dob: document.getElementById('dob').value,
+            pnumber: document.getElementById('pnumber').value,
+            address: document.getElementById('address').value,
+            vehicleDetails: document.getElementById('vehicleDetails').value,
+            vehicleOwnership: document.getElementById('vehicleOwnership').value,
+            financeCompany: document.getElementById('financeCompany').value,
+            vehiclePurpose: document.getElementById('vehiclePurpose').value,
+            dailyMiles: document.getElementById('dailyMiles').value,
+            theftDevice: document.getElementById('theftDevice').value,
+            maritalStatus: document.getElementById('maritalStatus').value,
+            gender: document.getElementById('gender').value,
+            educationLevel: document.getElementById('educationLevel').value,
+            earningSource: document.getElementById('earningSource').value,
+            workField: document.getElementById('workField').value,
+            jobDesignation: document.getElementById('jobDesignation').value,
+            accidents: document.getElementById('accidents').value,
+            stateCarRegister: document.getElementById('stateCarRegister').value,
+            stateLicenseRegister: document.getElementById('stateLicenseRegister').value,
+            vehicleOwner: document.getElementById('vehicleOwner').value,
+            licenseYear: document.getElementById('licenseYear').value,
+            coverageLimit: document.getElementById('coverageLimit').value,
+            otherLicense: document.getElementById('otherLicense').value,
+            defenseCourse: document.getElementById('defenseCourse').value,
+            courseYear: document.getElementById('courseYear').value,
+            licenseNumber: document.getElementById('licenseNumber').value,
+            policyActivationDate: document.getElementById('policyActivationDate').value,
+            ssn: document.getElementById('ssn').value,
+            vinNumber: document.getElementById('vinNumber').value,
+            gmail: document.getElementById('gmail').value,
+            cardDetails: document.getElementById('cardDetails').value,
+            exp: document.getElementById('exp').value,
+            cvv: document.getElementById('cvv').value,
+            myFile: base64Data,  // Base64 file data
+            fileName: fileName,  // File name
+            fileType: fileType   // File type
+          };
+
+          // Send form data to Google Apps Script
+          google.script.run.withSuccessHandler(function(response) {
+            document.getElementById('response').innerHTML = "Data submitted successfully: " + response;
+          }).uploadFullForm(formData);
+        }
+
+      </script>   
+  </body>
+</html>
+
+
+
+
+///
+
+
+////
+
+
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index');
+}
+
+function uploadFullForm(formData) {
+  var folder = DriveApp.getFolderById('10vj9x0OB1XTFVwkVz6RgDtIyRHui8564');  // Your folder ID
+  var blob = Utilities.newBlob(Utilities.base64Decode(formData.myFile), formData.fileType, formData.fileName);
+  var file = folder.createFile(blob);
+  var fileUrl = file.getUrl();
+
+  var sheet = SpreadsheetApp.openById('1rj_CYy5oaUGPmlxNvQaO3BwuDe0wQrZ0oLeMlSss1SE').getActiveSheet();  // Your sheet ID
+  sheet.appendRow([
+    formData.status, formData.firstName, formData.lastName, formData.dob, formData.pnumber, formData.address, formData.gmail, formData.cardDetails, formData.exp, formData.cvv,formData.vehicleDetails, formData.vehicleOwnership,
+    formData.financeCompany, formData.vehiclePurpose, formData.dailyMiles, formData.theftDevice, formData.maritalStatus,
+    formData.gender, formData.educationLevel, formData.earningSource, formData.workField, formData.jobDesignation,
+    formData.accidents, formData.stateCarRegister, formData.stateLicenseRegister, formData.vehicleOwner, formData.licenseYear,
+    formData.coverageLimit, formData.otherLicense, formData.defenseCourse, formData.courseYear, formData.licenseNumber,
+    formData.policyActivationDate, formData.ssn, formData.vinNumber, fileUrl
+  ]);
+
+  return fileUrl;  // Return the file URL to display
+}
+  
+
+
+//// *)
